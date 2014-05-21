@@ -17,6 +17,21 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * An instance of this class is used to generate a pseudorandom yet
+ * non-conflicting order of matchdates (array of matches).
+ * The basic idea is: the user instantiates a Fixture passing it an array of
+ * strings that represent the names of teams. During instantiation, the Fixture
+ * object randomizes the order of the teams and generates a fixture using
+ * a matrix with a pattern to avoid conflicts (such as one team playing two
+ * matches on the same matchdate or not enough possible match-ups left to fill
+ * a matchdate).
+ * The resulting Fixture can be seen using the display() or toString() methods.
+ * It is worth noting that the fixture-generating algorithm (implemented in the
+ * method generate() ) is a random algorithm and the running it twice with the
+ * same input DOES NOT guarantee the same output.
+ */
+
 import java.util.Random;
 
 /**
