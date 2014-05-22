@@ -17,20 +17,21 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-
+import Fixture.Fixture;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- *
+ * Class that uses the Fixture class.
  * @author Haiko
  */
 public class UseFixture {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
 
@@ -42,10 +43,12 @@ public class UseFixture {
 
         String file = "D:\\conmebol.txt";
 
-        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-
-        out.println(liga);
-        out.close();
+        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)))) {
+            out.println(liga);
+        } catch (Exception e)
+        {
+            // do nothing
+        }
 
     }
 }
