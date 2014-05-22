@@ -121,6 +121,7 @@ public class Fixture {
         extra "team" is free */
         System.arraycopy(teams, 0, this.teams, 0, n);
         
+        /* determining the amount of matchdates */
         int aux;
         if(odd && round) aux = 2*n;
         else if(odd && !round) aux = n;
@@ -129,6 +130,7 @@ public class Fixture {
         
         matchdatesOrder = new Integer[aux];
         
+        /* default order of matchdates */
         for(int i = 0; i < matchdatesOrder.length; i++)
         {
             matchdatesOrder[i] = i+1;
@@ -192,25 +194,17 @@ public class Fixture {
     }
     
     /**
-     * The list of teams is randomized. You could call
-     * this the sorting process.
-     * Currently outdated and being replaced by randomizeTeamsOrder()
+     * Both randomization methods are called
      */
-    private void randomize () {
-        int x; String aux;
-        Random random = new Random();
-        for (int i = 0; i < n; i++) {
-            x = random.nextInt(n);
-            aux = teams[i];
-            teams[i] = teams[x];
-            teams[x] = aux;
-        }
+    public void randomize () {
+        randomizeTeamsOrder();
+        randomizeMatchdatesOrder();
     }
     
     /**
      * The list of teams is randomized.
      */
-    private void randomizeTeamsOrder() {
+    public void randomizeTeamsOrder() {
         int x; String aux;
         Random random = new Random();
         for (int i = 0; i < n; i++) {
@@ -224,14 +218,21 @@ public class Fixture {
     /**
      * The list of numbers for matchdates is randomized.
      */
-    private void randomizeMatchdatesOrder() {
-        
+    public void randomizeMatchdatesOrder() {
+        int x; int aux;
+        Random random = new Random();
+        for (int i = 0; i < matchdatesOrder.length; i++) {
+            x = random.nextInt(matchdatesOrder.length);
+            aux = matchdatesOrder[i];
+            matchdatesOrder[i] = matchdatesOrder[x];
+            matchdatesOrder[x] = aux;
+        }
     }
 
     /**
      * The matrix and its pattern are generated.
      */
-    private void generate() {
+    public void generate() {
         if (odd) this.teams[n] = this.freeDefault;
         if (odd)
             matrix = new Integer [n+1][n+1]; // the matrix is generated according to the amount of teams
@@ -299,14 +300,6 @@ public class Fixture {
             }
         }
         
-    }
-    
-    /**
-     * Set round robin to true or false.
-     * @param x 
-     */
-    public void setRound(boolean x) {
-        round = x;
     }
     
     /**
